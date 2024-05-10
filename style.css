@@ -55,7 +55,40 @@ html {
 
 /* my stopwatch start */
 
+html body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
+.stopwatch{
+    background-color: black;
+    border-radius: 1rem;
+    box-shadow: .4rem .8rem 1rem rgba(255, 255, 255, 0.397);
+}
+
+.timer-value{
+    color: white;
+    font-size: 6rem;
+    font-weight: 500;
+}
+
+.stopwatch-btn{
+    background-color: white;
+    border: none;
+    padding: .5rem;
+    border-radius: .5rem;
+    text-transform: capitalize;
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    margin: .3rem;
+    width: 7rem;
+}
+
+#clear-time{
+    width: 9rem;
+}
 
 /* my stopwatch end */
 
