@@ -1,18 +1,27 @@
 let mainDiv = document.querySelector(".stopwatch");
+let getTimeSec = document.querySelector(".get-time-sec");
 let miliSec = document.querySelector("#mili-sec");
 let sec = document.querySelector("#sec");
 let minutes = document.querySelector("#min");
 let hour = document.querySelector("#hour");
+let miliSecCount = 0;
+let secCount = 1;
+let minCount = 1;
+let hourCount = 1;
+
 let startBtn = document.querySelector("#start");
 let resetBtn = document.querySelector("#reset");
 let stopBtn = document.querySelector("#stop");
 let getTimeBtn = document.querySelector("#get-time");
 let clearTimeBtn = document.querySelector("#clear-time");
-let miliSecCount = 0;
-let secCount = 1;
-let minCount = 1;
-let hourCount = 1;
+
 let interValId;
+
+let clearHistoryBtn = document.createElement("button");
+clearHistoryBtn.innerText = `clear history`;
+clearHistoryBtn.classList.add("stopwatch-btn");
+clearHistoryBtn.setAttribute("id" , "clear-history-btn")
+getTimeSec.prepend(clearHistoryBtn);
 
 const startBtnFunc = () => {
     miliSec.innerText = miliSecCount++;
@@ -32,6 +41,18 @@ const startBtnFunc = () => {
     }
 };
 
+const getTimeBtnFunc = () => {
+    getTimeSec.classList.remove("hide");
+    getTimeSec.style.height = `20rem`;
+    getTimeSec.style.overflow = `scroll`;
+    let pera = document.createElement("p");
+    pera.classList.add("get-time-text");
+    pera.innerText = `Your time is ${hour.innerText} hours, ${minutes.innerText} minutes and ${sec.innerText} seconds`;
+    getTimeSec.append(pera);
+};
+
+getTimeBtn.addEventListener("click", getTimeBtnFunc);
+
 startBtn.addEventListener("click", () => {
     interValId = setInterval(startBtnFunc, 0);
 });
@@ -40,4 +61,18 @@ const stopBtnFunc = () => {
     clearInterval(interValId);
 };
 
-stopBtn.addEventListener("click" , stopBtnFunc);
+stopBtn.addEventListener("click", stopBtnFunc);
+
+const clearTimeBtnFun = () => {
+    stopBtnFunc();
+    sec.innerText = `00`;
+    minutes.innerText = `00`;
+    hour.innerText = `00`;
+    miliSec.innerText = `00`;
+};
+
+clearTimeBtn.addEventListener("click", clearTimeBtnFun);
+
+const clearHistoryBtnFunc = () => {
+    
+};

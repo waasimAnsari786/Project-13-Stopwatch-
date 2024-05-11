@@ -90,8 +90,24 @@ html body{
     width: 9rem;
 }
 
+#clear-history-btn{
+    font-size: 1.2rem;
+    width: 10rem;
+}
+
 #mili-sec{
     font-size: 3rem;
+}
+
+.get-time-text{
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.3rem;
+    margin-top: 2rem;
+}
+
+.hide{
+    display: none;
 }
 
 /* my stopwatch end */
