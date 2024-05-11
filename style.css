@@ -74,7 +74,7 @@ html body{
     font-weight: 500;
 }
 
-.stopwatch-btn{
+.stopwatch-btn , .options{
     background-color: white;
     border: none;
     padding: .5rem;
@@ -86,8 +86,12 @@ html body{
     width: 7rem;
 }
 
-#clear-time{
+#clear-time , #stopwatch-btn{
     width: 9rem;
+}
+
+#mili-sec{
+    font-size: 3rem;
 }
 
 /* my stopwatch end */
