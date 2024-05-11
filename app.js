@@ -12,6 +12,7 @@ let miliSecCount = 0;
 let secCount = 1;
 let minCount = 1;
 let hourCount = 1;
+let interValId;
 
 const startBtnFunc = () => {
     miliSec.innerText = miliSecCount++;
@@ -32,5 +33,11 @@ const startBtnFunc = () => {
 };
 
 startBtn.addEventListener("click", () => {
-    setInterval(startBtnFunc, 0);
+    interValId = setInterval(startBtnFunc, 0);
 });
+
+const stopBtnFunc = () => {
+    clearInterval(interValId);
+};
+
+stopBtn.addEventListener("click" , stopBtnFunc);
