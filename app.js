@@ -1,3 +1,4 @@
+// stopwatch's code start
 let mainDiv = document.querySelector(".stopwatch");
 let getTimeSec = document.querySelector(".get-time-sec");
 let miliSec = document.querySelector("#mili-sec");
@@ -8,11 +9,15 @@ let miliSecCount = 0;
 let secCount = 1;
 let minCount = 1;
 let hourCount = 1;
+let timerSec = document.querySelector(".timer-sec");
+let timerSec2 = document.querySelector(".timer-sec-2");
 
 let startBtn = document.querySelector("#start");
 let resetBtn = document.querySelector("#reset");
 let stopBtn = document.querySelector("#stop");
 let getTimeBtn = document.querySelector("#get-time");
+let stopwatchBtn = document.querySelector("#stopwatch-btn");
+let timerBtn = document.querySelector("#timer-btn");
 
 let interValId;
 
@@ -85,3 +90,21 @@ const clearHistoryBtnFunc = () => {
 
 clearHistoryBtn.addEventListener("click" , clearHistoryBtnFunc);
 resetBtn.addEventListener("click" , resetBtnFun);
+
+stopwatchBtn.addEventListener("click" , () => {
+    timerSec.classList.remove("hide");
+    timerSec2.classList.add("hide");
+});
+
+timerBtn.addEventListener("click" , () => {
+    timerSec2.classList.remove("hide");
+    timerSec.classList.add("hide");
+});
+// stopwatch's code end
+
+
+
+
+// timer's code start
+
+// timer's code end

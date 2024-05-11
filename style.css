@@ -66,6 +66,7 @@ html body{
     background-color: black;
     border-radius: 1rem;
     box-shadow: .4rem .8rem 1rem rgba(255, 255, 255, 0.397);
+    overflow: hidden;
 }
 
 .timer-value{
@@ -110,7 +111,6 @@ html body{
 .hide{
     display: none;
 }
-
 /* my stopwatch end */
 
 

@@ -56,27 +56,52 @@
         <div class="col-12 stopwatch p-5">
             <button class="options" id="stopwatch-btn">stopwatch</button>
             <button class="options" id="timer-btn">timer</button>
-            <div class="col-12 timer-sec d-flex justify-content-center align-items-center flex-column">
-                <div class="col-12 d-flex justify-content-center align-items-center">
-                    <p class="timer-value text-center" id="hour">00</p>
-                    <p class="timer-value text-center">:</p>
-                    <p class="timer-value text-center" id="min">00</p>
-                    <p class="timer-value text-center">:</p>
-                    <p class="timer-value text-center" id="sec">00</p>
+            <div class="col-12 stopwatch-and-timer-ctnr d-flex justify-content-center align-items-center flex-column">
+                <div class="col-12 timer-sec">
+                    <div class="col-12 d-flex justify-content-center align-items-center flex-column">
+                        <div class="col-12 d-flex justify-content-center align-items-center">
+                            <p class="timer-value text-center" id="hour">00</p>
+                            <p class="timer-value text-center">:</p>
+                            <p class="timer-value text-center" id="min">00</p>
+                            <p class="timer-value text-center">:</p>
+                            <p class="timer-value text-center" id="sec">00</p>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-center align-items-center">
+                            <p class="timer-value text-center ms-3" id="mili-sec">00</p>
+                        </div>
+
+                        <div class="col-12">
+                            <button class="stopwatch-btn" id="start">start</button>
+                            <button class="stopwatch-btn" id="reset">reset</button>
+                            <button class="stopwatch-btn" id="stop">stop</button>
+                            <button class="stopwatch-btn" id="get-time">get time</button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-12 d-flex justify-content-center align-items-center">
-                    <p class="timer-value text-center ms-3" id="mili-sec">00</p>
+                <div class="col-12 get-time-sec mt-5 hide"></div>
+
+                <div class="col-12 timer-sec-2 hide">
+                    <div class="col-12 d-flex justify-content-center align-items-center flex-column">
+                        <div class="col-12 d-flex justify-content-center align-items-center">
+                            <p class="timer-value text-center" id="timer-hour">00</p>
+                            <p class="timer-value text-center">:</p>
+                            <p class="timer-value text-center" id="timer-min">00</p>
+                            <p class="timer-value text-center">:</p>
+                            <p class="timer-value text-center" id="timer-sec">00</p>
+                        </div>
+
+                        <div class="col-12">
+                            <button class="stopwatch-btn" id="timer-start">start</button>
+                            <button class="stopwatch-btn" id="timer-reset">reset</button>
+                            <button class="stopwatch-btn" id="timer-stop">stop</button>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="col-12 get-time-sec mt-5 hide"></div>
             </div>
-
-
-            <button class="stopwatch-btn" id="start">start</button>
-            <button class="stopwatch-btn" id="reset">reset</button>
-            <button class="stopwatch-btn" id="stop">stop</button>
-            <button class="stopwatch-btn" id="get-time">get time</button>
-
-            <div class="col-12 get-time-sec mt-5 hide"></div>
         </div>
     </div>
 
