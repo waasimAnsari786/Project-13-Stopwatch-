@@ -21,9 +21,17 @@ let timerBtn = document.querySelector("#timer-btn");
 
 let interValId;
 
+const addClassFunc = (element , myClassName) => {
+    element.classList.add(myClassName);
+};
+
+const removeClassFunc = (element , myClassName) => {
+    element.classList.remove(myClassName);
+};
+
 let clearHistoryBtn = document.createElement("button");
 clearHistoryBtn.innerText = `clear history`;
-clearHistoryBtn.classList.add("stopwatch-btn");
+addClassFunc(clearHistoryBtn , "stopwatch-btn")
 clearHistoryBtn.setAttribute("id" , "clear-history-btn")
 getTimeSec.prepend(clearHistoryBtn);
 
@@ -46,11 +54,11 @@ const startBtnFunc = () => {
 };
 
 const getTimeBtnFunc = () => {
-    getTimeSec.classList.remove("hide");
+    removeClassFunc(getTimeSec , "hide")
     getTimeSec.style.height = `20rem`;
     getTimeSec.style.overflow = `scroll`;
     let pera = document.createElement("p");
-    pera.classList.add("get-time-text");
+    addClassFunc(pera , "get-time-text")
     pera.innerText = `Your time is ${hour.innerText} hours, ${minutes.innerText} minutes and ${sec.innerText} seconds`;
     getTimeSec.append(pera);
 };
@@ -92,19 +100,62 @@ clearHistoryBtn.addEventListener("click" , clearHistoryBtnFunc);
 resetBtn.addEventListener("click" , resetBtnFun);
 
 stopwatchBtn.addEventListener("click" , () => {
-    timerSec.classList.remove("hide");
-    timerSec2.classList.add("hide");
+    removeClassFunc(timerSec , "hide")
+    addClassFunc(timerSec2 , "hide")
 });
 
-timerBtn.addEventListener("click" , () => {
-    timerSec2.classList.remove("hide");
-    timerSec.classList.add("hide");
-});
 // stopwatch's code end
 
 
 
-
 // timer's code start
+timerBtn.addEventListener("click" , () => {
+    removeClassFunc(timerSec2 , "hide");
+    addClassFunc(timerSec , "hide");
+});
+
+let setTimerDiv = document.createElement("div");
+setTimerDiv.innerHTML = `<input type="text" class="timer-input mt-5" timer-name-input placeholder="Timer Name">
+                         <input type="text" class="timer-input" timer-hour-input placeholder="Timer Hour">
+                         <input type="text" class="timer-input" timer-min-input placeholder="Timer Minutes">
+                         <input type="text" class="timer-input mb-5" timer-sec-input placeholder="Timer Seconds">
+                         <div class="col-12 d-flex justify-content-between align-items-center">
+                         <button class="stopwatch-btn" id="set-timer-btn">set</button>
+                         <button class="stopwatch-btn" id="cancel-timer-btn">cancel</button>
+                         </div>`;
+
+timerSec2.prepend(setTimerDiv);
+
+let timerHour = document.querySelector("#timer-hour");
+let timerMinutes = document.querySelector("#timer-min");
+let timerSeconds = document.querySelector("#timer-sec");
+let timerSec2inner = document.querySelector(".timer-sec-2-inner");
+
+let timerSetBtn = timerSec2.firstElementChild.children[4].children[0];
+let timerCancelBtn = timerSec2.firstElementChild.children[4].children[1];
+let timerNameInput = timerSec2.firstElementChild.children[0];
+let timerHourInput = timerSec2.firstElementChild.children[1];
+let timerMinInput = timerSec2.firstElementChild.children[2];
+let timerSecInput = timerSec2.firstElementChild.children[3];
+
+let timerHourCount;
+let timerMinCount;
+let timerSecCount;
+
+const timerSetBtnFunc = () => {
+    timerHourCount = timerHourInput.value;
+    timerMinCount = timerMinInput.value;
+    timerSecCount = timerSecInput.value;
+
+    // if (timerHourCount < 10) {
+        
+    // }
+
+    addClassFunc(setTimerDiv , "hide");
+    removeClassFunc(timerSec2inner , "hide");
+};
+
+timerSetBtn.addEventListener("click" , timerSetBtnFunc);
+
 
 // timer's code end

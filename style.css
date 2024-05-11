@@ -108,6 +108,19 @@ html body{
     font-style: italic;
 }
 
+.timer-input{
+    background-color: white;
+    border: none;
+    padding: .5rem;
+    border-radius: .5rem;
+    text-transform: capitalize;
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    margin: .5rem 0;
+    width: 100%;
+    outline: none;
+}
+
 .hide{
     display: none;
 }
