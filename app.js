@@ -74,5 +74,17 @@ const clearTimeBtnFun = () => {
 clearTimeBtn.addEventListener("click", clearTimeBtnFun);
 
 const clearHistoryBtnFunc = () => {
-    
+    let peras = document.querySelectorAll(".get-time-text");
+    peras.forEach(element => {
+        if (element.classList.contains("get-time-text")) {
+            element.remove();
+        }
+    });
+
+    setTimeout(() => {
+        getTimeSec.style.display = `none`
+    }, 500);
 };
+
+clearHistoryBtn.addEventListener("click" , clearHistoryBtnFunc);
+resetBtn.addEventListener("click" , clearTimeBtnFun);
