@@ -13,7 +13,6 @@ let startBtn = document.querySelector("#start");
 let resetBtn = document.querySelector("#reset");
 let stopBtn = document.querySelector("#stop");
 let getTimeBtn = document.querySelector("#get-time");
-let clearTimeBtn = document.querySelector("#clear-time");
 
 let interValId;
 
@@ -63,15 +62,13 @@ const stopBtnFunc = () => {
 
 stopBtn.addEventListener("click", stopBtnFunc);
 
-const clearTimeBtnFun = () => {
+const resetBtnFun = () => {
     stopBtnFunc();
     sec.innerText = `00`;
     minutes.innerText = `00`;
     hour.innerText = `00`;
     miliSec.innerText = `00`;
 };
-
-clearTimeBtn.addEventListener("click", clearTimeBtnFun);
 
 const clearHistoryBtnFunc = () => {
     let peras = document.querySelectorAll(".get-time-text");
@@ -87,4 +84,4 @@ const clearHistoryBtnFunc = () => {
 };
 
 clearHistoryBtn.addEventListener("click" , clearHistoryBtnFunc);
-resetBtn.addEventListener("click" , clearTimeBtnFun);
+resetBtn.addEventListener("click" , resetBtnFun);
