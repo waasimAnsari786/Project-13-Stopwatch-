@@ -20,6 +20,14 @@ let stopwatchBtn = document.querySelector("#stopwatch-btn");
 let timerBtn = document.querySelector("#timer-btn");
 
 let interValId;
+let arrOfGetTime = [];
+let pera;
+
+const getDataFromLocalStorage = (keyname) => {
+    return JSON.parse(localStorage.getItem(keyname));
+};
+
+console.log(getDataFromLocalStorage("myTime"));
 
 const addClassFunc = (element , myClassName) => {
     element.classList.add(myClassName);
@@ -53,18 +61,6 @@ const startBtnFunc = () => {
     }
 };
 
-const getTimeBtnFunc = () => {
-    removeClassFunc(getTimeSec , "hide")
-    getTimeSec.style.height = `20rem`;
-    getTimeSec.style.overflow = `scroll`;
-    let pera = document.createElement("p");
-    addClassFunc(pera , "get-time-text")
-    pera.innerText = `Your time is ${hour.innerText} hours, ${minutes.innerText} minutes and ${sec.innerText} seconds`;
-    getTimeSec.append(pera);
-};
-
-getTimeBtn.addEventListener("click", getTimeBtnFunc);
-
 startBtn.addEventListener("click", () => {
     interValId = setInterval(startBtnFunc, 0);
 });
@@ -83,11 +79,41 @@ const resetBtnFun = () => {
     miliSec.innerText = `00`;
 };
 
+resetBtn.addEventListener("click" , resetBtnFun);
+
+const printhDataInDiv = (text) => {
+    removeClassFunc(getTimeSec , "hide")
+    getTimeSec.style.height = `20rem`;
+    getTimeSec.style.overflow = `scroll`;
+    pera = document.createElement("p");
+    addClassFunc(pera , "get-time-text")
+    pera.innerText = text;
+    getTimeSec.append(pera);
+};
+
+const getTimeBtnFunc = () => {
+    printhDataInDiv(`Your time is ${hour.innerText} hours, ${minutes.innerText} minutes and ${sec.innerText} seconds`);
+    arrOfGetTime.push(pera.innerText);
+    localStorage.setItem("myTime" , JSON.stringify(arrOfGetTime));
+};
+
+getTimeBtn.addEventListener("click", getTimeBtnFunc);
+
+const showDataOfLocalstorage = () => {
+    let dataOfLocalStorage = getDataFromLocalStorage("myTime");
+    dataOfLocalStorage.forEach(element => {
+        printhDataInDiv(element);
+    });
+};
+
+showDataOfLocalstorage();
+
 const clearHistoryBtnFunc = () => {
     let peras = document.querySelectorAll(".get-time-text");
     peras.forEach(element => {
         if (element.classList.contains("get-time-text")) {
             element.remove();
+            localStorage.removeItem("myTime");
         }
     });
 
@@ -97,11 +123,12 @@ const clearHistoryBtnFunc = () => {
 };
 
 clearHistoryBtn.addEventListener("click" , clearHistoryBtnFunc);
-resetBtn.addEventListener("click" , resetBtnFun);
+
 
 stopwatchBtn.addEventListener("click" , () => {
     removeClassFunc(timerSec , "hide")
     addClassFunc(timerSec2 , "hide")
+    addClassFunc(getTimeSec , "hide")
 });
 
 // stopwatch's code end
@@ -112,6 +139,7 @@ stopwatchBtn.addEventListener("click" , () => {
 timerBtn.addEventListener("click" , () => {
     removeClassFunc(timerSec2 , "hide");
     addClassFunc(timerSec , "hide");
+    addClassFunc(getTimeSec , "hide")
 });
 
 let setTimerDiv = document.createElement("div");
