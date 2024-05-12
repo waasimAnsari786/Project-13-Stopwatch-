@@ -29,18 +29,18 @@ const getDataFromLocalStorage = (keyname) => {
 
 console.log(getDataFromLocalStorage("myTime"));
 
-const addClassFunc = (element , myClassName) => {
+const addClassFunc = (element, myClassName) => {
     element.classList.add(myClassName);
 };
 
-const removeClassFunc = (element , myClassName) => {
+const removeClassFunc = (element, myClassName) => {
     element.classList.remove(myClassName);
 };
 
 let clearHistoryBtn = document.createElement("button");
 clearHistoryBtn.innerText = `clear history`;
-addClassFunc(clearHistoryBtn , "stopwatch-btn")
-clearHistoryBtn.setAttribute("id" , "clear-history-btn")
+addClassFunc(clearHistoryBtn, "stopwatch-btn")
+clearHistoryBtn.setAttribute("id", "clear-history-btn")
 getTimeSec.prepend(clearHistoryBtn);
 
 const startBtnFunc = () => {
@@ -77,16 +77,20 @@ const resetBtnFun = () => {
     minutes.innerText = `00`;
     hour.innerText = `00`;
     miliSec.innerText = `00`;
+    miliSecCount = 0;
+    secCount = 1;
+    minCount = 1;
+    hourCount = 1;
 };
 
-resetBtn.addEventListener("click" , resetBtnFun);
+resetBtn.addEventListener("click", resetBtnFun);
 
 const printhDataInDiv = (text) => {
-    removeClassFunc(getTimeSec , "hide")
+    removeClassFunc(getTimeSec, "hide")
     getTimeSec.style.height = `20rem`;
     getTimeSec.style.overflow = `scroll`;
     pera = document.createElement("p");
-    addClassFunc(pera , "get-time-text")
+    addClassFunc(pera, "get-time-text")
     pera.innerText = text;
     getTimeSec.append(pera);
 };
@@ -94,7 +98,7 @@ const printhDataInDiv = (text) => {
 const getTimeBtnFunc = () => {
     printhDataInDiv(`Your time is ${hour.innerText} hours, ${minutes.innerText} minutes and ${sec.innerText} seconds`);
     arrOfGetTime.push(pera.innerText);
-    localStorage.setItem("myTime" , JSON.stringify(arrOfGetTime));
+    localStorage.setItem("myTime", JSON.stringify(arrOfGetTime));
 };
 
 getTimeBtn.addEventListener("click", getTimeBtnFunc);
@@ -122,13 +126,12 @@ const clearHistoryBtnFunc = () => {
     }, 500);
 };
 
-clearHistoryBtn.addEventListener("click" , clearHistoryBtnFunc);
+clearHistoryBtn.addEventListener("click", clearHistoryBtnFunc);
 
-
-stopwatchBtn.addEventListener("click" , () => {
-    removeClassFunc(timerSec , "hide")
-    addClassFunc(timerSec2 , "hide")
-    addClassFunc(getTimeSec , "hide")
+stopwatchBtn.addEventListener("click", () => {
+    removeClassFunc(timerSec, "hide");
+    addClassFunc(timerSec2, "hide");
+    addClassFunc(getTimeSec , "hide");
 });
 
 // stopwatch's code end
@@ -136,10 +139,10 @@ stopwatchBtn.addEventListener("click" , () => {
 
 
 // timer's code start
-timerBtn.addEventListener("click" , () => {
-    removeClassFunc(timerSec2 , "hide");
-    addClassFunc(timerSec , "hide");
-    addClassFunc(getTimeSec , "hide")
+timerBtn.addEventListener("click", () => {
+    removeClassFunc(timerSec2, "hide");
+    addClassFunc(timerSec, "hide");
+    addClassFunc(getTimeSec , "hide");
 });
 
 let setTimerDiv = document.createElement("div");
@@ -175,15 +178,13 @@ const timerSetBtnFunc = () => {
     timerMinCount = timerMinInput.value;
     timerSecCount = timerSecInput.value;
 
-    // if (timerHourCount < 10) {
-        
-    // }
+    timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount--}` : timerHour.innerText = timerHourCount--;
 
-    addClassFunc(setTimerDiv , "hide");
-    removeClassFunc(timerSec2inner , "hide");
+    addClassFunc(setTimerDiv, "hide");
+    removeClassFunc(timerSec2inner, "hide");
 };
 
-timerSetBtn.addEventListener("click" , timerSetBtnFunc);
+timerSetBtn.addEventListener("click", timerSetBtnFunc);
 
 
 // timer's code end
