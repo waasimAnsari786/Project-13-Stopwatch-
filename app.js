@@ -20,14 +20,7 @@ let stopwatchBtn = document.querySelector("#stopwatch-btn");
 let timerBtn = document.querySelector("#timer-btn");
 
 let interValId;
-let arrOfGetTime = [];
 let pera;
-
-const getDataFromLocalStorage = (keyname) => {
-    return JSON.parse(localStorage.getItem(keyname));
-};
-
-console.log(getDataFromLocalStorage("myTime"));
 
 const addClassFunc = (element, myClassName) => {
     element.classList.add(myClassName);
@@ -97,27 +90,15 @@ const printhDataInDiv = (text) => {
 
 const getTimeBtnFunc = () => {
     printhDataInDiv(`Your time is ${hour.innerText} hours, ${minutes.innerText} minutes and ${sec.innerText} seconds`);
-    arrOfGetTime.push(pera.innerText);
-    localStorage.setItem("myTime", JSON.stringify(arrOfGetTime));
 };
 
 getTimeBtn.addEventListener("click", getTimeBtnFunc);
-
-const showDataOfLocalstorage = () => {
-    let dataOfLocalStorage = getDataFromLocalStorage("myTime");
-    dataOfLocalStorage.forEach(element => {
-        printhDataInDiv(element);
-    });
-};
-
-showDataOfLocalstorage();
 
 const clearHistoryBtnFunc = () => {
     let peras = document.querySelectorAll(".get-time-text");
     peras.forEach(element => {
         if (element.classList.contains("get-time-text")) {
             element.remove();
-            localStorage.removeItem("myTime");
         }
     });
 
@@ -179,6 +160,8 @@ const timerSetBtnFunc = () => {
     timerSecCount = timerSecInput.value;
 
     timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount--}` : timerHour.innerText = timerHourCount--;
+    timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount--}` : timerMinutes.innerText = timerMinCount--;
+    timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
 
     addClassFunc(setTimerDiv, "hide");
     removeClassFunc(timerSec2inner, "hide");
