@@ -127,6 +127,23 @@ html body{
 /* my stopwatch end */
 
 
+/* histry div's code start */
+
+.history-div{
+    position: absolute;
+    right: 0;
+    top: 6rem;
+}
+
+#history-btn{
+    position: absolute;
+    top: 0;
+    right: 16rem;
+}
+
+/* histry div's code end */
+
+
 .rough {
     border: .1rem solid rgb(255, 255, 255);
 }
