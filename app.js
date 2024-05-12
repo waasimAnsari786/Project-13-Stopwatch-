@@ -20,6 +20,7 @@ let stopwatchBtn = document.querySelector("#stopwatch-btn");
 let timerBtn = document.querySelector("#timer-btn");
 
 let interValId;
+let interValId2;
 let pera;
 
 const addClassFunc = (element, myClassName) => {
@@ -58,11 +59,13 @@ startBtn.addEventListener("click", () => {
     interValId = setInterval(startBtnFunc, 0);
 });
 
-const stopBtnFunc = () => {
-    clearInterval(interValId);
+const stopBtnFunc = (IntervalId) => {
+    clearInterval(IntervalId);
 };
 
-stopBtn.addEventListener("click", stopBtnFunc);
+stopBtn.addEventListener("click", () => {
+    stopBtnFunc(interValId);
+});
 
 const resetBtnFun = () => {
     stopBtnFunc();
@@ -112,7 +115,7 @@ clearHistoryBtn.addEventListener("click", clearHistoryBtnFunc);
 stopwatchBtn.addEventListener("click", () => {
     removeClassFunc(timerSec, "hide");
     addClassFunc(timerSec2, "hide");
-    addClassFunc(getTimeSec , "hide");
+    addClassFunc(getTimeSec, "hide");
 });
 
 // stopwatch's code end
@@ -123,7 +126,7 @@ stopwatchBtn.addEventListener("click", () => {
 timerBtn.addEventListener("click", () => {
     removeClassFunc(timerSec2, "hide");
     addClassFunc(timerSec, "hide");
-    addClassFunc(getTimeSec , "hide");
+    addClassFunc(getTimeSec, "hide");
 });
 
 let setTimerDiv = document.createElement("div");
@@ -150,18 +153,64 @@ let timerHourInput = timerSec2.firstElementChild.children[1];
 let timerMinInput = timerSec2.firstElementChild.children[2];
 let timerSecInput = timerSec2.firstElementChild.children[3];
 
+let timerStartBtn = document.querySelector("#timer-start");
+let timerStopBtn = document.querySelector("#timer-stop");
+let timerResetBtn = document.querySelector("#timer-reset");
+
 let timerHourCount;
 let timerMinCount;
 let timerSecCount;
+
+const timerResetBtnFunc = () => {
+    stopBtnFunc(interValId2);
+    addClassFunc(timerSec2inner , "hide");
+    removeClassFunc(setTimerDiv , "hide");
+};
+
+const timerStartBtnFunc = () => {
+    timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
+    if (timerSecCount < 0) {
+        timerSecCount = 59;
+        timerMinCount--;
+
+        timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount}` : timerMinutes.innerText = timerMinCount;
+        if (timerMinCount < 1) {
+            timerMinCount = 59;
+            timerHourCount--;
+
+            timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount}` : timerHour.innerText = timerHourCount;
+
+            if (timerHourCount < 1) {
+                timerHourCount = `00`;
+                timerHour.innerText = timerHourCount;
+
+                setTimeout(() => {
+                    timerMinCount = `00`;
+                    timerMinutes.innerText = timerMinCount;
+                }, 3600000);
+
+                setTimeout(() => {
+                    timerSecCount = `00`;
+                    timerSeconds.innerText = timerSecCount;
+                    clearInterval(interValId2)
+                }, 60000);
+            }
+        }
+    }
+};
 
 const timerSetBtnFunc = () => {
     timerHourCount = timerHourInput.value;
     timerMinCount = timerMinInput.value;
     timerSecCount = timerSecInput.value;
 
-    timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount--}` : timerHour.innerText = timerHourCount--;
-    timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount--}` : timerMinutes.innerText = timerMinCount--;
-    timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
+    timerHour.innerText = timerHourCount;
+    timerMinutes.innerHTML = timerMinCount;
+    timerSeconds.innerText = timerSecCount;
+
+    timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount}` : timerHour.innerText = timerHourCount;
+    timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount}` : timerMinutes.innerText = timerMinCount;
+    timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount}` : timerSeconds.innerText = timerSecCount;
 
     addClassFunc(setTimerDiv, "hide");
     removeClassFunc(timerSec2inner, "hide");
@@ -169,5 +218,16 @@ const timerSetBtnFunc = () => {
 
 timerSetBtn.addEventListener("click", timerSetBtnFunc);
 
+timerStartBtn.addEventListener("click", () => {
+    interValId2 = setInterval(() => {
+        timerStartBtnFunc();
+    }, 1000);
+});
+
+timerStopBtn.addEventListener("click" , () => {
+    stopBtnFunc(interValId2);
+});
+
+timerResetBtn.addEventListener("click" , timerResetBtnFunc);
 
 // timer's code end
