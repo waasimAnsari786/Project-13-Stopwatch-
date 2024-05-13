@@ -100,7 +100,7 @@ html body{
     font-size: 3rem;
 }
 
-.get-time-text{
+.get-time-text , .get-time-text-2{
     color: white;
     font-family: "Poppins", sans-serif;
     font-size: 1.3rem;
@@ -131,14 +131,27 @@ html body{
 
 .history-div{
     position: absolute;
-    right: 0;
+    right: 1rem;
     top: 6rem;
+    height: 85vh;
+    overflow: scroll;
 }
 
 #history-btn{
     position: absolute;
     top: 0;
     right: 16rem;
+}
+
+.history-div-inner{
+    position: relative;
+}
+
+.history-div-inner-2{
+    background: black;
+    height: 5rem;
+    position: absolute;
+    top: 10rem;
 }
 
 /* histry div's code end */
