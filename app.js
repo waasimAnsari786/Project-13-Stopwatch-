@@ -107,7 +107,7 @@ const clearHistoryBtnFunc = () => {
     });
 
     setTimeout(() => {
-        addClassFunc(getTimeSec , "hide");
+        addClassFunc(getTimeSec, "hide");
     }, 500);
 };
 
@@ -160,10 +160,11 @@ let timerResetBtn = document.querySelector("#timer-reset");
 
 let timerHistoryBtn = document.querySelector("#history-btn");
 let timerHistoryDiv = document.querySelector(".history-div");
-let countForHistoryDiv = true;
 
 let newTimerArr;
+let countForHistoryDiv = true;
 let timerArrForStoreDataInLocalStorage = [];
+let deleteBtnArr = [];
 
 let timerHourCount;
 let timerMinCount;
@@ -176,16 +177,17 @@ const getDataFromLocalStorage = (keyName) => {
 const printTimersInHistoryDiv = (text1, text2, text3, text4) => {
     let historyDivInner = document.createElement("div");
     historyDivInner.style.borderBottom = `.1rem solid white`;
-    addClassFunc(historyDivInner , "history-div-inner")
-    historyDivInner.innerHTML = `<div class="history-div-inner-2"></div>
-                                 <p class="get-time-text-2" id="timer-name-history">${text1}</p>
-                                 <span class="get-time-text-2" id="timer-hour-history">${text2}</span>
-                                 <span class="get-time-text-2">:</span>
-                                 <span class="get-time-text-2" id="timer-min-history">${text3}</span>
-                                 <span class="get-time-text-2">:</span>
-                                 <span class="get-time-text-2" id="timer-sec-history">${text4}</span>
-                                 <div class="col-12 text-center">
-                                 <button class="stopwatch-btn my-3 timer-history-delete-btn">Delete</button>
+    historyDivInner.innerHTML = `<div class="history-div-inner">
+                                    <p class="get-time-text-2" id="timer-name-history">${text1}</p>
+                                    <span class="get-time-text-2" id="timer-hour-history">${text2}</span>
+                                    <span class="get-time-text-2">:</span>
+                                    <span class="get-time-text-2" id="timer-min-history">${text3}</span>
+                                    <span class="get-time-text-2">:</span>
+                                    <span class="get-time-text-2" id="timer-sec-history">${text4}</span>
+                                 </div>
+
+                                 <div class="col-6 mx-auto text-center timer-history-delete-btn-div">
+                                    <button class="stopwatch-btn my-3 timer-history-delete-btn">Delete</button>
                                  </div>`;
     timerHistoryDiv.append(historyDivInner);
 };
@@ -244,7 +246,7 @@ const timerSetBtnFunc = () => {
 
     let existingTimerSet = new Set(getDataFromLocalStorage("timer") || []);
 
-    let newTimerString = `${timerNameInput.value}_${timerHourInput.value}_${timerMinInput.value}_${timerSecInput.value}`;
+    let newTimerString = `${timerNameInput.value}:${timerHourInput.value}:${timerMinInput.value}:${timerSecInput.value}`;
 
     if (!existingTimerSet.has(newTimerString)) {
         existingTimerSet.add(newTimerString);
@@ -259,9 +261,9 @@ const timerSetBtnFunc = () => {
 };
 
 const showGotDataFromLocalStorage = () => {
-    let dataOfLocalstrage = getDataFromLocalStorage("timer");
+    let dataOfLocalstrage = getDataFromLocalStorage("timer") || [];
     dataOfLocalstrage.forEach(element => {
-        let splitedVal = element.toString().split("_");
+        let splitedVal = element.toString().split(":");
         printTimersInHistoryDiv(splitedVal[0], splitedVal[1], splitedVal[2], splitedVal[3]);
     });
 };
@@ -302,12 +304,12 @@ timerCancelBtn.addEventListener("click", () => {
 });
 
 timerHistoryDiv.addEventListener("click", (evt) => {
-    addClassFunc(setTimerDiv , "hide");
-    addClassFunc(timerSec , "hide");
-    removeClassFunc(timerSec2 , "hide");
-    removeClassFunc(timerSec2inner , "hide");
-
     if (evt.target.classList.contains("history-div-inner")) {
+        addClassFunc(setTimerDiv, "hide");
+        addClassFunc(timerSec, "hide");
+        removeClassFunc(timerSec2, "hide");
+        removeClassFunc(timerSec2inner, "hide");
+
         timerHourCount = evt.target.children[1].innerText;
         timerMinCount = evt.target.children[3].innerText;
         timerSecCount = evt.target.children[5].innerText;
@@ -315,6 +317,28 @@ timerHistoryDiv.addEventListener("click", (evt) => {
         timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount}` : timerHour.innerText = timerHourCount;
         timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount}` : timerMinutes.innerText = timerMinCount;
         timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount}` : timerSeconds.innerText = timerSecCount;
+    }
+
+    else if (evt.target.classList.contains("timer-history-delete-btn")) {
+        let innerTextOfPreviousSibling = evt.target.parentElement.previousElementSibling.innerText;
+        let parts = innerTextOfPreviousSibling.split(/\s*:\s*/);
+        let newText = parts.join(":");
+        deleteBtnArr.shift();
+        deleteBtnArr.push(newText);
+        let modifyArray = deleteBtnArr.map((item) => {
+            return item.replace(/\n\n/g , ":");
+        });
+
+        console.log(modifyArray);
+        
+        let dataOfLocalStorage = getDataFromLocalStorage("timer");
+        let newData = dataOfLocalStorage.filter(currElem => {
+            return currElem !== modifyArray[0];
+        });
+
+        localStorage.setItem("timer" , JSON.stringify(newData));
+        let elementForRemove = evt.target.parentElement.parentElement;
+        elementForRemove.remove();
     }
 });
 
