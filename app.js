@@ -284,17 +284,24 @@ const timerResetBtnFunc = () => {
 
 // this function is for timer's start button
 const timerStartBtnFunc = () => {
-    timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
+    // console.log(timerSecCount);
+    // console.log(timerMinCount);
+    // console.log(timerHourCount);
+
+    timerSeconds.innerText = timerSecCount--;
+    // timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
     if (timerSecCount < 1) {
         timerSecCount = 59;
         timerMinCount--;
-
-        timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount}` : timerMinutes.innerText = timerMinCount;
+        
+        timerMinutes.innerText = timerMinCount--;
+        // timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount--}` : timerMinutes.innerText = timerMinCount--;
         if (timerMinCount < 1) {
             timerMinCount = 59;
             timerHourCount--;
-
-            timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount}` : timerHour.innerText = timerHourCount;
+            
+            timerHour.innerText = timerHourCount--;
+            // timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount--}` : timerHour.innerText = timerHourCount--;
 
             if (timerHourCount < 1) {
                 timerHourCount = `00`;
@@ -309,7 +316,7 @@ const timerStartBtnFunc = () => {
                     timerSecCount = `00`;
                     timerSeconds.innerText = timerSecCount;
                     clearInterval(interValId2);
-                }, 60000);
+                }, 3601000);
             }
         }
     }
@@ -354,6 +361,17 @@ const showGotDataFromLocalStorage = () => {
 
 showGotDataFromLocalStorage();
 
+const setTheHistoryTimersAgainInTheTimr = (val1 , val2 , val3) => {
+    addClassFunc(setTimerDiv, "hide");
+        addClassFunc(timerSec, "hide");
+        removeClassFunc(timerSec2, "hide");
+        removeClassFunc(timerSec2inner, "hide");
+
+        timerHour.innerText = val1;
+        timerMinutes.innerText = val2;
+        timerSeconds.innerText = val3;
+};
+
 timerSetBtn.addEventListener("click", timerSetBtnFunc);
 
 
@@ -391,15 +409,23 @@ timerCancelBtn.addEventListener("click", () => {
 
 timerHistoryDiv.addEventListener("click", (evt) => {
     if (evt.target.classList.contains("history-div-inner")) {
-        
-        addClassFunc(setTimerDiv, "hide");
-        addClassFunc(timerSec, "hide");
-        removeClassFunc(timerSec2, "hide");
-        removeClassFunc(timerSec2inner, "hide");
+        setTheHistoryTimersAgainInTheTimr(evt.target.children[1].innerText , evt.target.children[3].innerText , evt.target.children[5].innerText)
+    }
 
-        timerHour.innerText = evt.target.children[1].innerText;
-        timerMinutes.innerText = evt.target.children[3].innerText;
-        timerSeconds.innerText = evt.target.children[5].innerText;
+    else if (evt.target.id === "timer-name-history") {
+        setTheHistoryTimersAgainInTheTimr(evt.target.nextElementSibling.innerText , evt.target.nextElementSibling.nextElementSibling.nextElementSibling.innerText , evt.target.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText)
+    }
+
+    else if (evt.target.id === "timer-hour-history") {
+        setTheHistoryTimersAgainInTheTimr(evt.target.innerText , evt.target.nextElementSibling.nextElementSibling.innerText , evt.target.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText)
+    }
+
+    else if (evt.target.id === "timer-min-history") {
+        setTheHistoryTimersAgainInTheTimr(evt.target.previousElementSibling.previousElementSibling.innerText , evt.target.innerText , evt.target.nextElementSibling.nextElementSibling.innerText)
+    }
+
+    else if (evt.target.id === "timer-sec-history") {
+        setTheHistoryTimersAgainInTheTimr(evt.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText , evt.target.previousElementSibling.previousElementSibling.innerText , evt.target.innerText)
     }
 
     else if (evt.target.classList.contains("timer-history-delete-btn")) {
@@ -424,3 +450,5 @@ timerHistoryDiv.addEventListener("click", (evt) => {
 });
 
 // timer's code end
+
+console.log(timerHistoryDiv);
