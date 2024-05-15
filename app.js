@@ -1,4 +1,6 @@
 // stopwatch's code start
+
+// these are those variables which i used in creating stopwatch
 let mainDiv = document.querySelector(".stopwatch");
 let getTimeSec = document.querySelector(".get-time-sec");
 let miliSec = document.querySelector("#mili-sec");
@@ -23,6 +25,7 @@ let interValId;
 let interValId2;
 let pera;
 
+// these 2 functions for adding and removing any class on any element
 const addClassFunc = (element, myClassName) => {
     element.classList.add(myClassName);
 };
@@ -31,12 +34,14 @@ const removeClassFunc = (element, myClassName) => {
     element.classList.remove(myClassName);
 };
 
+// this piece of code is for creating the history btn
 let clearHistoryBtn = document.createElement("button");
 clearHistoryBtn.innerText = `clear history`;
 addClassFunc(clearHistoryBtn, "stopwatch-btn")
 clearHistoryBtn.setAttribute("id", "clear-history-btn")
 getTimeSec.prepend(clearHistoryBtn);
 
+// this function is for start button of stopwatch
 const startBtnFunc = () => {
     miliSec.innerText = miliSecCount++;
     if (miliSecCount === 200) {
@@ -55,18 +60,22 @@ const startBtnFunc = () => {
     }
 };
 
+//  this is the add event listener of start button of stopwatch
 startBtn.addEventListener("click", () => {
     interValId = setInterval(startBtnFunc, 0);
 });
 
+//  this button is for stopbtn of stopwatch
 const stopBtnFunc = (IntervalId) => {
     clearInterval(IntervalId);
 };
 
+// and this is the add event listener of stop btn
 stopBtn.addEventListener("click", () => {
     stopBtnFunc(interValId);
 });
 
+//  this button is for reset button of stopwatch
 const resetBtnFun = () => {
     stopBtnFunc(interValId);
     sec.innerText = `00`;
@@ -81,6 +90,7 @@ const resetBtnFun = () => {
 
 resetBtn.addEventListener("click", resetBtnFun);
 
+// this function is for printing the got time of stopwatch in the get time div. and this function will execute when someone will click on get time button
 const printhDataInDiv = (text) => {
     getTimeSec.style.height = `20rem`;
     getTimeSec.style.overflow = `scroll`;
@@ -91,12 +101,14 @@ const printhDataInDiv = (text) => {
     removeClassFunc(getTimeSec, "hide")
 };
 
+// this function is for get time button
 const getTimeBtnFunc = () => {
     printhDataInDiv(`Your time is ${hour.innerText} hours, ${minutes.innerText} minutes and ${sec.innerText} seconds`);
 };
 
 getTimeBtn.addEventListener("click", getTimeBtnFunc);
 
+// this function is for clear the history of stopwatch time and this function will execute when someone will click on clear history button
 const clearHistoryBtnFunc = () => {
     let peras = document.querySelectorAll(".get-time-text");
     peras.forEach(element => {
@@ -105,6 +117,7 @@ const clearHistoryBtnFunc = () => {
         }
     });
 
+    // this piece of code is for hidding the div of stopwatch's timer's history
     setTimeout(() => {
         addClassFunc(getTimeSec, "hide");
     }, 500);
@@ -112,6 +125,7 @@ const clearHistoryBtnFunc = () => {
 
 clearHistoryBtn.addEventListener("click", clearHistoryBtnFunc);
 
+// this add event listener is for stopwatch button
 stopwatchBtn.addEventListener("click", () => {
     removeClassFunc(timerSec, "hide");
     addClassFunc(timerSec2, "hide");
@@ -123,12 +137,15 @@ stopwatchBtn.addEventListener("click", () => {
 
 
 // timer's code start
+
+// this add event listener is for timer button
 timerBtn.addEventListener("click", () => {
     removeClassFunc(timerSec2, "hide");
     addClassFunc(timerSec, "hide");
     addClassFunc(getTimeSec, "hide");
 });
 
+// this piece of code is for crerating a div which contains 4 inputs and 2 buttons for setting the time of timer.
 let setTimerDiv = document.createElement("div");
 setTimerDiv.innerHTML = `<input type="text" class="timer-input mt-5" timer-name-input placeholder="Timer Name">
                          <input type="text" class="timer-input" timer-hour-input placeholder="Timer Hour">
@@ -141,6 +158,7 @@ setTimerDiv.innerHTML = `<input type="text" class="timer-input mt-5" timer-name-
 
 timerSec2.prepend(setTimerDiv);
 
+// htese are all variables of timer which used in creating it
 let timerHour = document.querySelector("#timer-hour");
 let timerMinutes = document.querySelector("#timer-min");
 let timerSeconds = document.querySelector("#timer-sec");
@@ -169,9 +187,10 @@ let timerHourCount;
 let timerMinCount;
 let timerSecCount;
 
+// this function is for set the values of timer's hour , minutes and seconds. after setinng those values which we are getting from parameters i set it in timer's hour , minutes and second's inner text. then after asssiging those set values i returned an array of settled value so taht i can use those settled values at different stages of my code.
 const settheInnerTextInTimer = (val1, val2, val3 , val4) => {
     if (val1 === '') {
-        val1 = 'Anonymous Timer';
+        val1 = 'Unnamed Timer';
     } else {
         val1 = val1;
     }
@@ -206,10 +225,12 @@ const settheInnerTextInTimer = (val1, val2, val3 , val4) => {
     return [val1 , timerHourCount , timerMinCount , timerSecCount];
 };
 
+// this function is for getting the data from localstorage
 const getDataFromLocalStorage = (keyName) => {
     return JSON.parse(localStorage.getItem(keyName));
 };
 
+// this function is for printing the history of timer in the timer history div. you can see it by click on history button
 const printTimersInHistoryDiv2 = (text1, text2, text3, text4) => {
     let historyDivInner = document.createElement("div");
     historyDivInner.style.borderBottom = `.1rem solid white`;
@@ -228,6 +249,7 @@ const printTimersInHistoryDiv2 = (text1, text2, text3, text4) => {
     timerHistoryDiv.append(historyDivInner);
 };
 
+//  this function is almost same as it's above function but tghere is a differnece bbetween these 2 functions. and that is, i used the "settheInnerTextInTimer()" function in this function and i used these 2 functions at different satges according to scenario of code.
 const printTimersInHistoryDiv = (text1, text2, text3, text4) => {
     let returnedArray = settheInnerTextInTimer(text1 , text2 , text3 , text4);
 
@@ -253,12 +275,14 @@ const printTimersInHistoryDiv = (text1, text2, text3, text4) => {
     timerHistoryDiv.append(historyDivInner);
 };
 
+// this function is for timer's reset button
 const timerResetBtnFunc = () => {
     stopBtnFunc(interValId2);
     addClassFunc(timerSec2inner, "hide");
     removeClassFunc(setTimerDiv, "hide");
 };
 
+// this function is for timer's start button
 const timerStartBtnFunc = () => {
     timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
     if (timerSecCount < 1) {
@@ -291,6 +315,7 @@ const timerStartBtnFunc = () => {
     }
 };
 
+//  this function is for timer's set button which will execute when someone will click on timer's set button
 const timerSetBtnFunc = () => {
     let returnedArray = settheInnerTextInTimer(timerNameInput.value , timerHourInput.value, timerMinInput.value, timerSecInput.value);
 
@@ -318,6 +343,7 @@ const timerSetBtnFunc = () => {
     }
 };
 
+//  this function will execute when page will refresh and it's behavior is that it will get data from local storage then print got data in timer's history div
 const showGotDataFromLocalStorage = () => {
     let dataOfLocalstrage = getDataFromLocalStorage("timer") || [];
     dataOfLocalstrage.forEach(element => {
@@ -330,6 +356,8 @@ showGotDataFromLocalStorage();
 
 timerSetBtn.addEventListener("click", timerSetBtnFunc);
 
+
+// and then we have some add event listeners for various buttons 
 timerStartBtn.addEventListener("click", () => {
     interValId2 = setInterval(() => {
         timerStartBtnFunc();
