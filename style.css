@@ -47,8 +47,8 @@ html {
 }
 
 @media (max-width:350px) {
-    .to-do-list {
-        width: 33rem !important;
+    .main-stopwatch {
+        width: 25rem !important;
     }
 }
 
