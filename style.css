@@ -33,6 +33,10 @@ html {
     html {
         font-size: 56.25%;
     }
+
+    #stopwatch-history-div{
+        height: 20vh;
+    }
 }
 
 @media (max-width:576px) {
