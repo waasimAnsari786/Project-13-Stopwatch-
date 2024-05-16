@@ -188,7 +188,7 @@ let timerMinCount;
 let timerSecCount;
 
 // this function is for set the values of timer's hour , minutes and seconds. after setinng those values which we are getting from parameters i set it in timer's hour , minutes and second's inner text. then after asssiging those set values i returned an array of settled value so taht i can use those settled values at different stages of my code.
-const settheInnerTextInTimer = (val1, val2, val3 , val4) => {
+const settheInnerTextInTimer = (val1, val2, val3, val4) => {
     if (val1 === '') {
         val1 = 'Unnamed Timer';
     } else {
@@ -203,7 +203,7 @@ const settheInnerTextInTimer = (val1, val2, val3 , val4) => {
     } else {
         timerHourCount = val2;
     }
-    
+
     if (val3 === '') {
         val3 = '00'
         timerMinCount = val3;
@@ -212,7 +212,7 @@ const settheInnerTextInTimer = (val1, val2, val3 , val4) => {
     } else {
         timerMinCount = val3;
     }
-    
+
     if (val4 === '') {
         val4 = '00';
         timerSecCount = val4;
@@ -222,7 +222,7 @@ const settheInnerTextInTimer = (val1, val2, val3 , val4) => {
         timerSecCount = val4;
     }
 
-    return [val1 , timerHourCount , timerMinCount , timerSecCount];
+    return [val1, timerHourCount, timerMinCount, timerSecCount];
 };
 
 // this function is for getting the data from localstorage
@@ -251,7 +251,7 @@ const printTimersInHistoryDiv2 = (text1, text2, text3, text4) => {
 
 //  this function is almost same as it's above function but tghere is a differnece bbetween these 2 functions. and that is, i used the "settheInnerTextInTimer()" function in this function and i used these 2 functions at different satges according to scenario of code.
 const printTimersInHistoryDiv = (text1, text2, text3, text4) => {
-    let returnedArray = settheInnerTextInTimer(text1 , text2 , text3 , text4);
+    let returnedArray = settheInnerTextInTimer(text1, text2, text3, text4);
 
     let returnedVal = returnedArray[0];
     let returnedVal2 = returnedArray[1];
@@ -284,47 +284,41 @@ const timerResetBtnFunc = () => {
 
 // this function is for timer's start button
 const timerStartBtnFunc = () => {
-    // console.log(timerSecCount);
-    // console.log(timerMinCount);
-    // console.log(timerHourCount);
-
-    timerSeconds.innerText = timerSecCount--;
-    // timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
+    timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
     if (timerSecCount < 1) {
         timerSecCount = 59;
         timerMinCount--;
-        
-        timerMinutes.innerText = timerMinCount--;
-        // timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount--}` : timerMinutes.innerText = timerMinCount--;
-        if (timerMinCount < 1) {
-            timerMinCount = 59;
-            timerHourCount--;
-            
-            timerHour.innerText = timerHourCount--;
-            // timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount--}` : timerHour.innerText = timerHourCount--;
 
-            if (timerHourCount < 1) {
-                timerHourCount = `00`;
-                timerHour.innerText = timerHourCount;
+        timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount}` : timerMinutes.innerText = timerMinCount;
+    }
 
-                setTimeout(() => {
-                    timerMinCount = `00`;
-                    timerMinutes.innerText = timerMinCount;
-                }, 3600000);
+    if (timerMinCount < 1) {
+        timerMinCount = 59;
+        timerHourCount--;
 
-                setTimeout(() => {
-                    timerSecCount = `00`;
-                    timerSeconds.innerText = timerSecCount;
-                    clearInterval(interValId2);
-                }, 3601000);
-            }
-        }
+        timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount}` : timerHour.innerText = timerHourCount;
+    }
+
+    if (timerHourCount < 1) {
+        timerHourCount = "00";
+        timerHour.innerText = timerHourCount;
+
+        setTimeout(() => {
+            timerMinCount = '00';
+            timerMinutes.innerText = timerMinCount;
+        }, 3600000);
+
+        setTimeout(() => {
+            timerSecCount = '00';
+            timerSeconds.innerText = timerSecCount;
+            clearInterval(interValId2);
+        }, 3601000);
     }
 };
 
 //  this function is for timer's set button which will execute when someone will click on timer's set button
 const timerSetBtnFunc = () => {
-    let returnedArray = settheInnerTextInTimer(timerNameInput.value , timerHourInput.value, timerMinInput.value, timerSecInput.value);
+    let returnedArray = settheInnerTextInTimer(timerNameInput.value, timerHourInput.value, timerMinInput.value, timerSecInput.value);
 
     let returnedVal = returnedArray[0];
     let returnedVal2 = returnedArray[1];
@@ -334,7 +328,7 @@ const timerSetBtnFunc = () => {
     timerHour.innerText = returnedVal2;
     timerMinutes.innerText = returnedVal3;
     timerSeconds.innerText = returnedVal4;
-   
+
     let existingTimerSet = new Set(getDataFromLocalStorage("timer") || []);
 
     let newTimerString = `${returnedVal}:${returnedVal2}:${returnedVal3}:${returnedVal4}`;
@@ -361,15 +355,39 @@ const showGotDataFromLocalStorage = () => {
 
 showGotDataFromLocalStorage();
 
-const setTheHistoryTimersAgainInTheTimr = (val1 , val2 , val3) => {
+const setTheHistoryTimersAgainInTheTimr = (val1, val2, val3) => {
     addClassFunc(setTimerDiv, "hide");
-        addClassFunc(timerSec, "hide");
-        removeClassFunc(timerSec2, "hide");
-        removeClassFunc(timerSec2inner, "hide");
+    addClassFunc(timerSec, "hide");
+    removeClassFunc(timerSec2, "hide");
+    removeClassFunc(timerSec2inner, "hide");
 
-        timerHour.innerText = val1;
-        timerMinutes.innerText = val2;
-        timerSeconds.innerText = val3;
+    let arrVal = +val1;
+    let arrVal2 = +val2;
+    let arrVal3 = +val3;
+
+    timerHourCount = arrVal < 10 ? arrVal =`0${arrVal}` : arrVal;
+    timerMinCount = arrVal2 < 10 ? arrVal2 =`0${arrVal2}` : arrVal2;
+    timerSecCount = arrVal3 < 10 ? arrVal3 =`0${arrVal3}` : arrVal3;
+
+    timerHour.innerText = timerHourCount;
+    timerMinutes.innerText = timerMinCount;
+    timerSeconds.innerText = timerSecCount;
+};
+
+const setTheValueOfTimer2 = (element) => {
+    if (isNaN(element.value)) {
+        element.value = `59`;
+        alert(`You are trying to write letters or special characters in the timer's hour , minute or second input. Correct your timer's hour , minute or second because it's not valid`);
+        removeClassFunc(timerResetBtn , "hide");
+    }
+}
+
+const setTheValueOfTimer = (element) => {
+    if (element.value > 60) {
+        element.value = `59`;
+        alert(`Correct your timer's hour , minute or second because it's not valid`);
+        removeClassFunc(timerResetBtn , "hide");
+    }
 };
 
 timerSetBtn.addEventListener("click", timerSetBtnFunc);
@@ -409,23 +427,23 @@ timerCancelBtn.addEventListener("click", () => {
 
 timerHistoryDiv.addEventListener("click", (evt) => {
     if (evt.target.classList.contains("history-div-inner")) {
-        setTheHistoryTimersAgainInTheTimr(evt.target.children[1].innerText , evt.target.children[3].innerText , evt.target.children[5].innerText)
+        setTheHistoryTimersAgainInTheTimr(evt.target.children[1].innerText, evt.target.children[3].innerText, evt.target.children[5].innerText)
     }
 
     else if (evt.target.id === "timer-name-history") {
-        setTheHistoryTimersAgainInTheTimr(evt.target.nextElementSibling.innerText , evt.target.nextElementSibling.nextElementSibling.nextElementSibling.innerText , evt.target.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText)
+        setTheHistoryTimersAgainInTheTimr(evt.target.nextElementSibling.innerText, evt.target.nextElementSibling.nextElementSibling.nextElementSibling.innerText, evt.target.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText)
     }
 
     else if (evt.target.id === "timer-hour-history") {
-        setTheHistoryTimersAgainInTheTimr(evt.target.innerText , evt.target.nextElementSibling.nextElementSibling.innerText , evt.target.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText)
+        setTheHistoryTimersAgainInTheTimr(evt.target.innerText, evt.target.nextElementSibling.nextElementSibling.innerText, evt.target.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText)
     }
 
     else if (evt.target.id === "timer-min-history") {
-        setTheHistoryTimersAgainInTheTimr(evt.target.previousElementSibling.previousElementSibling.innerText , evt.target.innerText , evt.target.nextElementSibling.nextElementSibling.innerText)
+        setTheHistoryTimersAgainInTheTimr(evt.target.previousElementSibling.previousElementSibling.innerText, evt.target.innerText, evt.target.nextElementSibling.nextElementSibling.innerText)
     }
 
     else if (evt.target.id === "timer-sec-history") {
-        setTheHistoryTimersAgainInTheTimr(evt.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText , evt.target.previousElementSibling.previousElementSibling.innerText , evt.target.innerText)
+        setTheHistoryTimersAgainInTheTimr(evt.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText, evt.target.previousElementSibling.previousElementSibling.innerText, evt.target.innerText)
     }
 
     else if (evt.target.classList.contains("timer-history-delete-btn")) {
@@ -449,6 +467,17 @@ timerHistoryDiv.addEventListener("click", (evt) => {
     }
 });
 
-// timer's code end
+timerMinInput.addEventListener("input" , () => {
+    setTheValueOfTimer(timerMinInput);
+    setTheValueOfTimer2(timerMinInput)
+});
 
-console.log(timerHistoryDiv);
+timerSecInput.addEventListener("input" , () => {
+    setTheValueOfTimer(timerSecInput);
+    setTheValueOfTimer2(timerSecInput)
+});
+
+timerHourInput.addEventListener("input" , () => {
+    setTheValueOfTimer2(timerHourInput)
+});
+// timer's code end
