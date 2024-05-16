@@ -277,6 +277,7 @@ const printTimersInHistoryDiv = (text1, text2, text3, text4) => {
 
 // this function is for timer's reset button
 const timerResetBtnFunc = () => {
+    timerStartBtn.disabled = false;
     stopBtnFunc(interValId2);
     addClassFunc(timerSec2inner, "hide");
     removeClassFunc(setTimerDiv, "hide");
@@ -284,32 +285,30 @@ const timerResetBtnFunc = () => {
 
 // this function is for timer's start button
 const timerStartBtnFunc = () => {
-    timerSecCount < 10 ? timerSeconds.innerText = `0${timerSecCount--}` : timerSeconds.innerText = timerSecCount--;
+    timerSecCount < 10 ? timerSeconds.innerText = `0${--timerSecCount}` : timerSeconds.innerText = --timerSecCount;
     if (timerSecCount < 1) {
         timerSecCount = 59;
-        timerMinCount--;
-
-        timerMinCount < 10 ? timerMinutes.innerText = `0${timerMinCount}` : timerMinutes.innerText = timerMinCount;
+        timerSeconds.innerText = timerSecCount;
+        timerMinCount < 10 ? timerMinutes.innerText = `0${--timerMinCount}` : timerMinutes.innerText = --timerMinCount;
     }
-
+    
     if (timerMinCount < 1) {
-        timerMinCount = 59;
-        timerHourCount--;
-
-        timerHourCount < 10 ? timerHour.innerText = `0${timerHourCount}` : timerHour.innerText = timerHourCount;
+        timerMinCount = 59;        
+        timerMinutes.innerText = timerMinCount;
+        timerHourCount < 10 ? timerHour.innerText = `0${--timerHourCount}` : timerHour.innerText = --timerHourCount;
     }
 
     if (timerHourCount < 1) {
-        timerHourCount = "00";
+        timerHourCount = `00`;
         timerHour.innerText = timerHourCount;
 
         setTimeout(() => {
-            timerMinCount = '00';
+            timerMinCount = `00`;
             timerMinutes.innerText = timerMinCount;
         }, 3600000);
 
         setTimeout(() => {
-            timerSecCount = '00';
+            timerSecCount = `00`;
             timerSeconds.innerText = timerSecCount;
             clearInterval(interValId2);
         }, 3601000);
@@ -395,12 +394,14 @@ timerSetBtn.addEventListener("click", timerSetBtnFunc);
 
 // and then we have some add event listeners for various buttons 
 timerStartBtn.addEventListener("click", () => {
+    timerStartBtn.disabled = true;
     interValId2 = setInterval(() => {
         timerStartBtnFunc();
     }, 1000);
 });
 
 timerStopBtn.addEventListener("click", () => {
+    timerStartBtn.disabled = false;
     stopBtnFunc(interValId2);
 });
 
