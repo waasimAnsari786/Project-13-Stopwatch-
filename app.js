@@ -442,8 +442,6 @@ timerStartBtn.addEventListener("click", () => {
         interValId2 = setInterval(() => {
             timerStartBtnFunc2();
         }, 1000);
-
-        console.log('ok1');
     }
     
     if (timerHour.innerText === '00' && timerMinutes.innerText === '00' && timerSeconds.innerText > 0) {
@@ -451,7 +449,6 @@ timerStartBtn.addEventListener("click", () => {
         interValId2 = setInterval(() => {
             timerStartBtnFunc3();
         }, 1000);
-        console.log('ok2');
     }
     
     if (timerHour.innerText > 0 && timerMinutes.innerText > 0 && timerSeconds.innerText >= '00') {
@@ -459,13 +456,7 @@ timerStartBtn.addEventListener("click", () => {
         interValId2 = setInterval(() => {
             timerStartBtnFunc();
         }, 1000);
-        console.log('ok3');
     }
-
-    // timerStartBtn.disabled = true;
-    // interValId2 = setInterval(() => {
-    //     timerStartBtnFunc();
-    // }, 1000);
 });
 
 timerStopBtn.addEventListener("click", () => {
