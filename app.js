@@ -284,6 +284,48 @@ const timerResetBtnFunc = () => {
 };
 
 // this function is for timer's start button
+const timerStartBtnFunc3 = () => {
+    timerHourCount = '00';
+    timerHour.innerText = timerHourCount;
+
+    timerMinCount = '00';
+    timerMinutes.innerText = timerMinCount;
+
+    timerSecCount < 10 ? timerSeconds.innerText = `0${--timerSecCount}` : timerSeconds.innerText = --timerSecCount;
+    if (timerSecCount < 1) {
+        timerSecCount = '00';
+        timerSeconds.innerText = timerSecCount;
+        clearInterval(interValId2);
+        timerStartBtn.disabled = false;
+    }
+};
+
+
+const timerStartBtnFunc2 = () => {
+    timerHourCount = '00';
+    timerHour.innerText = timerHourCount;
+
+    timerSecCount < 10 ? timerSeconds.innerText = `0${--timerSecCount}` : timerSeconds.innerText = --timerSecCount;
+    if (timerSecCount < 1) {
+        timerSecCount = 59;
+        timerSeconds.innerText = timerSecCount;
+        timerMinCount < 10 ? timerMinutes.innerText = `0${--timerMinCount}` : timerMinutes.innerText = --timerMinCount;
+    }
+
+    if (timerMinCount < 1) {
+        timerMinCount = '00';
+        timerMinutes.innerText = timerMinCount;
+
+        setTimeout(() => {
+            timerSecCount = '00';
+            timerSeconds.innerText = timerSecCount;
+            clearInterval(interValId2);
+            timerStartBtn.disabled = false;
+        }, 60000);
+    }
+};
+
+
 const timerStartBtnFunc = () => {
     timerSecCount < 10 ? timerSeconds.innerText = `0${--timerSecCount}` : timerSeconds.innerText = --timerSecCount;
     if (timerSecCount < 1) {
@@ -291,26 +333,27 @@ const timerStartBtnFunc = () => {
         timerSeconds.innerText = timerSecCount;
         timerMinCount < 10 ? timerMinutes.innerText = `0${--timerMinCount}` : timerMinutes.innerText = --timerMinCount;
     }
-    
+
     if (timerMinCount < 1) {
-        timerMinCount = 59;        
+        timerMinCount = 59;
         timerMinutes.innerText = timerMinCount;
         timerHourCount < 10 ? timerHour.innerText = `0${--timerHourCount}` : timerHour.innerText = --timerHourCount;
     }
 
     if (timerHourCount < 1) {
-        timerHourCount = `00`;
+        timerHourCount = '00';
         timerHour.innerText = timerHourCount;
 
         setTimeout(() => {
-            timerMinCount = `00`;
+            timerMinCount = '00';
             timerMinutes.innerText = timerMinCount;
         }, 3600000);
 
         setTimeout(() => {
-            timerSecCount = `00`;
+            timerSecCount = '00';
             timerSeconds.innerText = timerSecCount;
             clearInterval(interValId2);
+            timerStartBtn.disabled = false;
         }, 3601000);
     }
 };
@@ -364,9 +407,9 @@ const setTheHistoryTimersAgainInTheTimr = (val1, val2, val3) => {
     let arrVal2 = +val2;
     let arrVal3 = +val3;
 
-    timerHourCount = arrVal < 10 ? arrVal =`0${arrVal}` : arrVal;
-    timerMinCount = arrVal2 < 10 ? arrVal2 =`0${arrVal2}` : arrVal2;
-    timerSecCount = arrVal3 < 10 ? arrVal3 =`0${arrVal3}` : arrVal3;
+    timerHourCount = arrVal < 10 ? arrVal = `0${arrVal}` : arrVal;
+    timerMinCount = arrVal2 < 10 ? arrVal2 = `0${arrVal2}` : arrVal2;
+    timerSecCount = arrVal3 < 10 ? arrVal3 = `0${arrVal3}` : arrVal3;
 
     timerHour.innerText = timerHourCount;
     timerMinutes.innerText = timerMinCount;
@@ -377,7 +420,7 @@ const setTheValueOfTimer2 = (element) => {
     if (isNaN(element.value)) {
         element.value = `59`;
         alert(`You are trying to write letters or special characters in the timer's hour , minute or second input. Correct your timer's hour , minute or second because it's not valid`);
-        removeClassFunc(timerResetBtn , "hide");
+        removeClassFunc(timerResetBtn, "hide");
     }
 }
 
@@ -385,7 +428,7 @@ const setTheValueOfTimer = (element) => {
     if (element.value > 60) {
         element.value = `59`;
         alert(`Correct your timer's hour , minute or second because it's not valid`);
-        removeClassFunc(timerResetBtn , "hide");
+        removeClassFunc(timerResetBtn, "hide");
     }
 };
 
@@ -394,10 +437,35 @@ timerSetBtn.addEventListener("click", timerSetBtnFunc);
 
 // and then we have some add event listeners for various buttons 
 timerStartBtn.addEventListener("click", () => {
-    timerStartBtn.disabled = true;
-    interValId2 = setInterval(() => {
-        timerStartBtnFunc();
-    }, 1000);
+    if (timerHour.innerText === '00' && timerMinutes.innerText > 0 && timerSeconds.innerText >= '00') {
+        timerStartBtn.disabled = true;
+        interValId2 = setInterval(() => {
+            timerStartBtnFunc2();
+        }, 1000);
+
+        console.log('ok1');
+    }
+    
+    if (timerHour.innerText === '00' && timerMinutes.innerText === '00' && timerSeconds.innerText > 0) {
+        timerStartBtn.disabled = true;
+        interValId2 = setInterval(() => {
+            timerStartBtnFunc3();
+        }, 1000);
+        console.log('ok2');
+    }
+    
+    if (timerHour.innerText > 0 && timerMinutes.innerText > 0 && timerSeconds.innerText >= '00') {
+        timerStartBtn.disabled = true;
+        interValId2 = setInterval(() => {
+            timerStartBtnFunc();
+        }, 1000);
+        console.log('ok3');
+    }
+
+    // timerStartBtn.disabled = true;
+    // interValId2 = setInterval(() => {
+    //     timerStartBtnFunc();
+    // }, 1000);
 });
 
 timerStopBtn.addEventListener("click", () => {
@@ -468,17 +536,17 @@ timerHistoryDiv.addEventListener("click", (evt) => {
     }
 });
 
-timerMinInput.addEventListener("input" , () => {
+timerMinInput.addEventListener("input", () => {
     setTheValueOfTimer(timerMinInput);
     setTheValueOfTimer2(timerMinInput)
 });
 
-timerSecInput.addEventListener("input" , () => {
+timerSecInput.addEventListener("input", () => {
     setTheValueOfTimer(timerSecInput);
     setTheValueOfTimer2(timerSecInput)
 });
 
-timerHourInput.addEventListener("input" , () => {
+timerHourInput.addEventListener("input", () => {
     setTheValueOfTimer2(timerHourInput)
 });
 // timer's code end
