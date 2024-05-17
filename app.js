@@ -451,7 +451,7 @@ timerStartBtn.addEventListener("click", () => {
         }, 1000);
     }
     
-    if (timerHour.innerText > 0 && timerMinutes.innerText > 0 && timerSeconds.innerText >= '00') {
+    if (timerHour.innerText > 0 && timerMinutes.innerText >= '00' && timerSeconds.innerText >= '00') {
         timerStartBtn.disabled = true;
         interValId2 = setInterval(() => {
             timerStartBtnFunc();
